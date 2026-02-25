@@ -1,20 +1,23 @@
-from machine import Pin
+import RPi.GPIO as GPIO
 
 
 class ButtonPress:
     
-    def __init__(self, pin:int):       
-        self.button = Pin(pin, Pin.IN, Pin.PULL_UP)
+    def __init__(self, pin:int):
+        self.pin = pin
+
+        GPIO.setmode(GPIO.BCM) 
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP) 
 
 
     def get_button_pin_state(self):
-        return self.button.value()
+        return GPIO.input(self.pin)
     
     
     
 if __name__=="__main__":
     import time
-    button_class = ButtonPress(pin=5)
+    button_class = ButtonPress(pin=23)
     
     while True:
         print(button_class.get_button_pin_state())

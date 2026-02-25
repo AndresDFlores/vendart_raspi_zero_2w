@@ -10,9 +10,9 @@ class VendArt(SolenoidManager):
     
     
     #  class variables
-    _solenoid_pin=0
-    _engage_button_pin=5
-    _disengage_button_pin=26
+    _solenoid_pin=26
+    _engage_button_pin=23
+    _disengage_button_pin=24
     
     _solenoid_engage_timeout=5
     
