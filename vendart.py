@@ -14,7 +14,7 @@ class VendArt(SolenoidManager):
     _engage_button_pin=23
     _disengage_button_pin=24
     
-    _solenoid_engage_timeout=5
+    _solenoid_engage_timeout=15
     
     
     def __init__(self):
