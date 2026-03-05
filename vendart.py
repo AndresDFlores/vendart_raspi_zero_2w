@@ -1,7 +1,7 @@
 from time import sleep
 from datetime import datetime as dt
 
-from pico_client import *
+from webhook_udp_listener import *
 from solenoid_manager import *
 from button_class import *
 
@@ -14,7 +14,7 @@ class VendArt(SolenoidManager):
     _engage_button_pin=23
     _disengage_button_pin=24
     
-    _solenoid_engage_timeout=15
+    _solenoid_engage_timeout=3  #15
     
     
     def __init__(self):
@@ -23,7 +23,7 @@ class VendArt(SolenoidManager):
         self.vend_solenoid = SolenoidManager(pin=self._solenoid_pin)
         
         #  initialize POS API connection
-        self.pico_client_class = PicoClient()
+        self.pico_client_class = PiZeroClient()
         
         #  initialize button instances for the engage and disengage parameters
         self.engage_button = ButtonPress(pin=self._engage_button_pin)
