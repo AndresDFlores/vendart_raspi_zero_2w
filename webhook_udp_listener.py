@@ -6,7 +6,7 @@ class PiZeroClient:
     @classmethod
     def set_bool_state(cls, bool_state):
         cls.bool_state = bool_state
-        print(f'Bool State: {bool_state}')
+        # print(f'Bool State: {bool_state}')
 
 
     def __init__(self):
@@ -26,7 +26,7 @@ class PiZeroClient:
         try:
             data, addr = self.s.recvfrom(1024)
             self.set_bool_state(bool(data))
-            print(f"RECEIVED: {bool(data)} from {addr}")
+            # print(f"RECEIVED: {bool(data)} from {addr}")
 
         except socket.timeout:
             # No packet received within timeout

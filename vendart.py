@@ -8,7 +8,6 @@ from button_class import *
 
 class VendArt(SolenoidManager):    
     
-    
     #  class variables
     _solenoid_pin=26
     _engage_button_pin=23
@@ -17,7 +16,10 @@ class VendArt(SolenoidManager):
     _solenoid_engage_timeout=15
     
     
-    def __init__(self):
+    def __init__(self, literal:bool=False):
+
+        #  display nmessages
+        self.literal=literal
         
         #  initialize solenoid pin
         self.vend_solenoid = SolenoidManager(pin=self._solenoid_pin)
@@ -45,7 +47,7 @@ class VendArt(SolenoidManager):
             
             
             
-            print(f'\n\n{dt.now()}\nbutton: {engage_button_state}\napi: {pos_webhook_endpoint}')
+            if self.literal: print(f'\n\n{dt.now()}\nbutton: {engage_button_state}\napi: {pos_webhook_endpoint}')
 
 
             
@@ -56,7 +58,7 @@ class VendArt(SolenoidManager):
                 pin_state = True
                 
 
-            print(f'pin state: {pin_state}')
+            if self.literal: print(f'pin state: {pin_state}')
 
 
 
@@ -76,15 +78,17 @@ class VendArt(SolenoidManager):
                     disengage_button_state = self.disengage_button.get_button_pin_state()
                     
                     #  solenoid timed disengage summer
-                    sleep(.01)
-                    seconds_elapsed+=.01
+                    time_incrememnt = .01
+                    sleep(time_incrememnt)
+                    seconds_elapsed+=time_incrememnt
                     
                     
                     #  if disengage button state is 0 or the engage timeout is exceeded, disengage solenoid
                     #  engage timeout is a safety parameter to ensure that the solenoid does not burn out with an extended hold time
                     if disengage_button_state==0 or seconds_elapsed>=self._solenoid_engage_timeout:
+
                         self.vend_solenoid.set_engage_flag(False)
                         self.vend_solenoid.drive_solenoid()
-                        
                         self.pico_client_class.set_bool_state(bool_state=False)
+                        
                         break

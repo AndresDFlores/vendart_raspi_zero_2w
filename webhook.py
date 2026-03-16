@@ -6,15 +6,6 @@ import webhook_secure_tunnel
 
 class DPPClass:
 
-    @classmethod
-    def set_bool_state(cls, bool_state):
-        cls.bool_state = bool_state
-        print(f'Bool State: {bool_state}')
-
-
-    def __init__(self):
-        self.set_bool_state(bool_state=False)
-
     #  define local server (webhook endpoint) thread
     def start_server(self):
         self.server_thread = threading.Thread(target=webhook_http_server.run, args=())
@@ -25,6 +16,8 @@ class DPPClass:
 
 
     def main(self):
+        
+        #  define threads
         self.start_server()
         self.start_secure_tunnel()
 
