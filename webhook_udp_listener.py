@@ -26,7 +26,6 @@ class PiZeroClient:
         try:
             data, addr = self.s.recvfrom(1024)
             self.set_bool_state(bool(data))
-            # print(f"RECEIVED: {bool(data)} from {addr}")
 
         except socket.timeout:
             # No packet received within timeout
