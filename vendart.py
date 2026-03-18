@@ -25,7 +25,7 @@ class VendArt(SolenoidManager):
         self.vend_solenoid = SolenoidManager(pin=self._solenoid_pin)
         
         #  initialize POS API connection
-        self.pico_client_class = PiZeroClient()
+        self.raspi_zero_client_class = PiZeroClient()
         
         #  initialize button instances for the engage and disengage parameters
         self.engage_button = ButtonPress(pin=self._engage_button_pin)
@@ -42,8 +42,8 @@ class VendArt(SolenoidManager):
             
             
             #  check data received from point of sale webhook endpoint
-            self.pico_client_class.get_data()
-            pos_webhook_endpoint = self.pico_client_class.bool_state
+            self.raspi_zero_client_class.get_data()
+            pos_webhook_endpoint = self.raspi_zero_client_class.bool_state
             
             
             
@@ -89,6 +89,6 @@ class VendArt(SolenoidManager):
 
                         self.vend_solenoid.set_engage_flag(False)
                         self.vend_solenoid.drive_solenoid()
-                        self.pico_client_class.set_bool_state(bool_state=False)
+                        self.raspi_zero_client_class.set_bool_state(bool_state=False)
                         
                         break
