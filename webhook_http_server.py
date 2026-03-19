@@ -25,7 +25,8 @@ class WebhookHandler(BaseHTTPRequestHandler):
 
 
         payment = body_dict['data']['object']['payment']
-        status = payment.get('status')
+        status = payment.get('status')  # completed when successful, canceled when failed
+        receipt_id = payment.get('receipt_url')  # returns none when transaction failed
 
 
         # Forward a UDP packet to your listener if payment is successfully received
@@ -33,6 +34,7 @@ class WebhookHandler(BaseHTTPRequestHandler):
             sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
             sock.sendto(b"1", (UDP_IP, UDP_PORT))
             sock.close()
+
 
         self.send_response(200)
         self.end_headers()
