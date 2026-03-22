@@ -1,12 +1,13 @@
 import socket
 
 
-class PiZeroClient:
+class UDPListener:
+ 
+    #  User Datagram Protocol (UDP) - communication protocol for sending data between devices on a network
 
     @classmethod
     def set_bool_state(cls, bool_state):
         cls.bool_state = bool_state
-        # print(f'Bool State: {bool_state}')
 
 
     def __init__(self):
@@ -33,7 +34,7 @@ class PiZeroClient:
 
 
 if __name__ == "__main__":
-    client = PiZeroClient()
+    client = UDPListener()
 
     while True:
         print(client.bool_state)

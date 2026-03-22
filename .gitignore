@@ -3,6 +3,11 @@ __pycache__/
 *.py[codz]
 *$py.class
 
+# Logs
+*.log
+*.json
+*.jsonl
+
 # C extensions
 *.so
 

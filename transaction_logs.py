@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+
 class TransactionLogger:
 
 
@@ -16,7 +17,7 @@ class TransactionLogger:
 
         details_dict = {
             "transaction_id": transaction_record_dict["data"]["id"],
-            "created_at": transaction_record_dict["created_at"],
+            "created_at": transaction_record_dict["created_at"],  #UTC timestamp (ETC+4)
             "status": transaction_record_dict["data"]["object"]["payment"]["status"],
             "customer":{
                 "first_name": transaction_record_dict["data"]["object"]["payment"]["billing_address"]["first_name"],
@@ -42,7 +43,7 @@ class TransactionLogger:
         return details_dict
     
 
-
+    #  get list of all transaction IDs in log
     def extract_transaction_ids(self):
         transaction_ids = []
 
@@ -95,6 +96,7 @@ class TransactionLogger:
 
 
 
+
     def main(self, transaction_record_dict:dict):
 
         data_to_write = self.get_transaction_details(transaction_record_dict)
@@ -107,4 +109,3 @@ class TransactionLogger:
             self.publish_to_udp=True
         else:
             self.publish_to_udp=False
-
